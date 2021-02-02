@@ -10,12 +10,12 @@ SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
+-- BREAKS EVERYTHING - SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
+--
 --
 -- Name: eth_tx_attempts_state; Type: TYPE; Schema: public; Owner: postgres
 --
@@ -949,12 +949,11 @@ ALTER SEQUENCE public.log_consumptions_id_seq OWNED BY public.log_consumptions.i
 -- Name: migrations; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE IF NOT EXISTS public.migrations (
-    id character varying(255) NOT NULL
-);
-
-
-ALTER TABLE public.migrations OWNER TO postgres;
+-- CREATE TABLE IF NOT EXISTS public.migrations (
+--     id character varying(255) NOT NULL
+-- );
+--
+-- ALTER TABLE public.migrations OWNER TO postgres;
 
 --
 -- Name: offchainreporting_contract_configs; Type: TABLE; Schema: public; Owner: postgres
@@ -1840,9 +1839,9 @@ ALTER TABLE ONLY public.log_consumptions
 -- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.migrations
-    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
-
+-- ALTER TABLE ONLY public.migrations
+--     ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
+--
 
 --
 -- Name: offchainreporting_contract_configs offchainreporting_contract_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres

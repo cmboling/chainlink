@@ -4,25 +4,26 @@ import (
 	"github.com/jinzhu/gorm"
 	"gopkg.in/gormigrate.v1"
 	"io/ioutil"
+	"path"
+	"runtime"
 )
 
 func init() {
 	Migrations = append(Migrations, &gormigrate.Migration{
 		ID: "1_initial",
 		Migrate: func(db *gorm.DB) error {
-			query, err := ioutil.ReadFile("1_initial/up.sql")
+			_, filename, _, _ := runtime.Caller(0)
+			query, err := ioutil.ReadFile(path.Join(path.Dir(filename), "1_initial/up.sql"))
 			if err != nil {
-				panic(err)
+				return err
 			}
-			if err := db.Raw(string(query)).Error; err != nil {
-				panic(err)
-			}
-			return nil
+			return  db.Exec(string(query)).Error
 		},
 		Rollback: func(db *gorm.DB) error {
-			query, err := ioutil.ReadFile("1_initial/down.sql")
+			_, filename, _, _ := runtime.Caller(0)
+			query, err := ioutil.ReadFile(path.Join(path.Dir(filename), "1_initial/down.sql"))
 			if err != nil {
-				panic(err)
+				return err
 			}
 			return db.Exec(string(query)).Error
 		},

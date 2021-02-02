@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/smartcontractkit/chainlink/core/store/migrationsv2"
 	"io/ioutil"
 	"net/url"
 	"os"
@@ -13,7 +14,6 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/smartcontractkit/chainlink/core/gracefulpanic"
-	"github.com/smartcontractkit/chainlink/core/store/migrations"
 	"github.com/smartcontractkit/chainlink/core/store/orm"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -70,7 +70,7 @@ func BootstrapThrowawayORM(t *testing.T, name string, migrate bool, loadFixtures
 	orm.SetLogging(true)
 	tc.Config.Set("DATABASE_URL", migrationTestDBURL)
 	if migrate {
-		require.NoError(t, orm.RawDB(func(db *gorm.DB) error { return migrations.Migrate(db) }))
+		require.NoError(t, orm.RawDB(func(db *gorm.DB) error { return migrationsv2.Migrate(db) }))
 	}
 	if len(loadFixtures) > 0 && loadFixtures[0] {
 		_, filename, _, ok := runtime.Caller(0)
