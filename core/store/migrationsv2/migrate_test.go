@@ -2,10 +2,11 @@ package migrationsv2
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // http://doc.gorm.io/database.html#connecting-to-a-database
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestMigrate_Migrations(t *testing.T) {

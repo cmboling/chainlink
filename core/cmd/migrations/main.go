@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
-	"github.com/smartcontractkit/chainlink/core/store/migrationsv2"
 	"log"
 	"os"
+
+	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // http://doc.gorm.io/database.html#connecting-to-a-database
+	"github.com/smartcontractkit/chainlink/core/store/migrationsv2"
 )
 
 func main() {
-	// Connect to the database
+	// TODO: Error handling, put in the client
 	db, err := gorm.Open("postgres", os.Args[1])
 	if err != nil {
 		log.Fatal("unable to connect to db", err)
@@ -19,11 +20,17 @@ func main() {
 
 	switch os.Args[2] {
 	case "up":
-		migrationsv2.MigrateUp(db, os.Args[3])
+		if err := migrationsv2.MigrateUp(db, os.Args[3]); err != nil {
+			log.Fatal(err)
+		}
 	case "down":
-		migrationsv2.MigrateDown(db)
+		if err := migrationsv2.MigrateDown(db); err != nil {
+			log.Fatal(err)
+		}
 	case "reset":
-		migrationsv2.Reset(db)
+		if err := migrationsv2.Reset(db); err != nil {
+			log.Fatal(err)
+		}
 	case "version":
 		fmt.Println(migrationsv2.Version(db))
 	default:

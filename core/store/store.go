@@ -3,10 +3,11 @@ package store
 import (
 	"context"
 	"fmt"
-	"github.com/smartcontractkit/chainlink/core/store/migrationsv2"
 	"os"
 	"path/filepath"
 	"sync"
+
+	"github.com/smartcontractkit/chainlink/core/store/migrationsv2"
 
 	"github.com/smartcontractkit/chainlink/core/gracefulpanic"
 	"github.com/smartcontractkit/chainlink/core/logger"

@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"github.com/smartcontractkit/chainlink/core/store/migrationsv2"
 	"io/ioutil"
 	"net/url"
 	"os"
 	"path"
 	"runtime"
 	"testing"
+
+	"github.com/smartcontractkit/chainlink/core/store/migrationsv2"
 
 	"github.com/jinzhu/gorm"
 	"github.com/smartcontractkit/chainlink/core/gracefulpanic"

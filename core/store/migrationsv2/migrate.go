@@ -2,6 +2,7 @@ package migrationsv2
 
 import (
 	"fmt"
+
 	"github.com/jinzhu/gorm"
 	gormigrate "gopkg.in/gormigrate.v1"
 )
@@ -20,7 +21,7 @@ func MigrateUp(db *gorm.DB, to string) error {
 	}, Migrations)
 
 	if to == "" {
-		to = Migrations[len(Migrations) - 1].ID
+		to = Migrations[len(Migrations)-1].ID
 	}
 	fmt.Println("migrating to", to)
 	if err := g.MigrateTo(to); err != nil {

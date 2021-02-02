@@ -1,11 +1,12 @@
 package migrationsv2
 
 import (
-	"github.com/jinzhu/gorm"
-	"gopkg.in/gormigrate.v1"
 	"io/ioutil"
 	"path"
 	"runtime"
+
+	"github.com/jinzhu/gorm"
+	"gopkg.in/gormigrate.v1"
 )
 
 func init() {
@@ -17,7 +18,7 @@ func init() {
 			if err != nil {
 				return err
 			}
-			return  db.Exec(string(query)).Error
+			return db.Exec(string(query)).Error
 		},
 		Rollback: func(db *gorm.DB) error {
 			_, filename, _, _ := runtime.Caller(0)
