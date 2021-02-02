@@ -176,11 +176,17 @@ func (fm *concreteFluxMonitor) serveInternalRequests() {
 			delete(jobMap, jobID)
 
 		case <-fm.chStop:
+			waiter := sync.WaitGroup()
 			for _, checkers := range jobMap {
+				waiter.Add(len(checkers))
 				for _, checker := range checkers {
-					checker.Stop()
+					go func() {
+						checker.Stop()
+						waiter.Done()
+					}()
 				}
 			}
+			waiter.Wait()
 			return
 		}
 	}
